@@ -1,20 +1,53 @@
-﻿// HW3.8.1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include <iostream>
+#include <string>
+#include <exception>
+#include "Function.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "Russian");
+    system("chcp 1251");
+
+    int wordLength = 0;
+    int forbiddenLength = 0;
+    std::string anyWord;
+    bool checkForbiddenLength = false;
+
+    do
+    {
+        std::cout << "Введите запретную длину: ";
+        std::cin >> forbiddenLength;
+
+        if (forbiddenLength > 0)
+        {
+            checkForbiddenLength = true;
+        }
+
+        if (forbiddenLength <= 0)
+        {
+            std::cout << "Неверная длина... Введите новую" << std::endl;
+        }
+
+    } while (!checkForbiddenLength);
+
+    std::cout << "-------------------------" << std::endl;
+
+    try
+    {
+        do
+        {
+            std::cout << "Введите слово: ";
+            std::cin >> anyWord;
+
+            wordLength = function(anyWord, forbiddenLength);
+
+            std::cout << "Длина слова \"" << anyWord << "\" равна " << wordLength;
+            std::cout << std::endl << "-------------------------" << std::endl;
+
+        } while (forbiddenLength != wordLength);
+    }
+    catch (const std::exception& ex)
+    {
+        std::cout << std::endl << ex.what() << std::endl;
+    }
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
